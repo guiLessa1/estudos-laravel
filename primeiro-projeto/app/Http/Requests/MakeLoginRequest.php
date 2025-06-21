@@ -40,12 +40,13 @@ class MakeLoginRequest extends FormRequest
      */
     public function tryToLogin(): bool
     {
-        if ($user = User::where('email', $this->email)) {
-            if (Hash::check($this->password, $user->password)) {
-                auth()->login($user);
-                return true;
-            }
+        $user = User::where('email', $this->email)->first();
+
+        if ($user && Hash::check($this->password, $user->password)) {
+            auth()->login($user);
+            return true;
         }
+
         return false;
     }
 }

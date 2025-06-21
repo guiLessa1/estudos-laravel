@@ -24,7 +24,7 @@
 
         <br>
         <div>
-            <input type="email" name="email_confirmation" placeholder="Email Confirmation"> 
+            <input type="email" name="email_confirmation" placeholder="Email Confirmation">
         </div>
 
         <br>
