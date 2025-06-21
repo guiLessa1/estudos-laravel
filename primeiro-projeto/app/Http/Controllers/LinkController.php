@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Link;
 use App\Http\Requests\StoreLinkRequest;
 use App\Http\Requests\UpdateLinkRequest;
+use App\Models\User;
 
 class LinkController extends Controller
 {
@@ -22,7 +23,22 @@ class LinkController extends Controller
      */
     public function store(StoreLinkRequest $request)
     {
-        Link::query()->create($request->validated());
+        /** @var User $user */
+        $user = auth()->user();
+
+        $user->links()
+            ->create(
+                $request->validated()
+            );
+
+        // Link::query()
+        //     ->create(
+        //         array_merge(
+        //             $request->validated(),
+        //             ['user_id' => $user->id]
+        //         )
+        //     );
+
         return to_route('dashboard');
     }
 
