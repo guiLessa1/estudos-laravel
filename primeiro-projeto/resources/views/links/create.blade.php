@@ -2,7 +2,7 @@
     <h1>Criar um link</h1>
 
     @if($message = session()->get('message'))
-    <div class="alert alert-danger">{{ $message }}</div>
+    <div >{{ $message }}</div>
     @endif
 
     <form action="{{ route('links.create') }}" method="post">

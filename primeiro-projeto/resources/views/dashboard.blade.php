@@ -1,8 +1,9 @@
 <div>
     <h1>Dashboard</h1>
+    <a href="{{route('profile')}}">Atualizar Profile</a>
 
     @if($message = session()->get('message'))
-    <div class="alert alert-danger">{{ $message }}</div>
+    <div >{{ $message }}</div>
     @endif
 
     <a href="{{route('links.create')}}">Adicionar link</a>
