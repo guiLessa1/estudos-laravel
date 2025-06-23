@@ -31,14 +31,6 @@ class LinkController extends Controller
                 $request->validated()
             );
 
-        // Link::query()
-        //     ->create(
-        //         array_merge(
-        //             $request->validated(),
-        //             ['user_id' => $user->id]
-        //         )
-        //     );
-
         return to_route('dashboard');
     }
 
@@ -47,6 +39,8 @@ class LinkController extends Controller
      */
     public function edit(Link $link)
     {
+        /** @var User $user */
+        $user = auth()->user();
         return view('links.edit', compact('link'));
     }
 
@@ -66,6 +60,20 @@ class LinkController extends Controller
      */
     public function destroy(Link $link)
     {
-        //
+        $link->delete();
+
+        return to_route('dashboard')->with(['message' => 'Link excluído com sucesso!']);
+    }
+
+    public function up(Link $link)
+    {
+        $link->moveUp();
+        return back();
+    }
+
+    public function down(Link $link)
+    {
+        $link->moveDown();
+        return back();
     }
 }

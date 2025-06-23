@@ -23,6 +23,8 @@
             @enderror
         </div>
         <br>
+
+        <a href="{{ route('dashboard') }}">Voltar</a>
         <button>Salvar</button>
 
     </form>
