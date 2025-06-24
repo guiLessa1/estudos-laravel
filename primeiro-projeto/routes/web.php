@@ -19,8 +19,6 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [RegisterController::class, 'register']);
 });
 
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/logout', LogoutController::class)->name('logout');
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
@@ -36,7 +34,6 @@ Route::middleware('auth')->group(function () {
         Route::patch('/links/{link}/up', [LinkController::class, 'up'])->name('links.up');
         Route::patch('/links/{link}/down', [LinkController::class, 'down'])->name('links.down');
     });
-
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update']);
