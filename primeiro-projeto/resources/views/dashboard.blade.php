@@ -1,39 +1,52 @@
-<div>
-    <h1>Dashboard</h1>
-    <a href="{{route('profile')}}">Atualizar Profile</a>
+<x-layout.app>
+    <x-container>
+        <div class="text-center space-y-4">
+            <x-image src="/storage/{{ $user->photo }}" alt="Profile Picture" />
+            <div class="font-bold text-2xl tracking-wider">{{ $user->name }}</div>
+            <div class="text-sm opacity-80">{{ $user->description }}</div>
 
-    @if($message = session()->get('message'))
-    <div >{{ $message }}</div>
-    @endif
+            <ul class="space-y-2">
+                @foreach ($links as $link)
+                    <li class="flex items-center gap-2">
 
-    <a href="{{route('links.create')}}">Adicionar link</a>
 
-    <ul>
-        @foreach($links as $link)
-        <li style="display: flex">
-            @unless ($loop->last)
-            <form action="{{route('links.down', $link)}}" method="POST">
-                @csrf
-                @method('PATCH')
-                <button>DOWN</button>
-            </form>
-            @endunless
-            @unless ($loop->first)
-            <form action="{{route('links.up', $link)}}" method="POST">
-                @csrf
-                @method('PATCH')
-                <button>UP</button>
-            </form>
-            @endunless
-            <a href="{{route('links.edit', $link->id)}}">
-                {{$link->id}}. {{ $link->name }}
-            </a>
-            <form action="{{route('links.destroy', $link)}}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este link?')">
-                @csrf
-                @method('DELETE')
-                <button>Deletar</button>
-            </form>
-        </li>
-        @endforeach
-    </ul>
-</div>
+                        @unless ($loop->last)
+                            <x-form :route="route('links.down', $link)" patch>
+                                <x-button ghost>
+                                    <x-icons.down class="w-6 h-6" />
+                                </x-button>
+                            </x-form>
+                        @else
+                            <x-button disabled ghost>
+                                <x-icons.down class="w-6 h-6" />
+                            </x-button>
+                        @endunless
+                        @unless ($loop->first)
+                            <x-form :route="route('links.up', $link)" patch>
+                                <x-button ghost>
+                                    <x-icons.up class="w-6 h-6" />
+                                </x-button>
+                            </x-form>
+                        @else
+                            <x-button disabled ghost>
+                                <x-icons.up class="w-6 h-6" />
+                            </x-button>
+                        @endunless
+
+
+
+                        <x-link href="{{ route('links.edit', $link) }}" block outline>
+                            {{ $link->name }}
+                        </x-link>
+                        <x-form :route="route('links.destroy', $link)" delete
+                            onsubmit="return confirm('Tem certeza que deseja excluir este link?')">
+                            <x-button ghost>
+                                <x-icons.trash class="w-6 h-6" />
+                            </x-button>
+                        </x-form>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </x-container>
+</x-layout.app>

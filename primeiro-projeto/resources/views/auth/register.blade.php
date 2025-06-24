@@ -1,42 +1,18 @@
-<div>
-    <h1>Register</h1>
+<x-layout.app>
+    <x-container>
+        <x-card title="Register">
+            <x-form :route="route('register')" post id="register-form">
+                <x-input name="name" placeholder="Name" value="{{ old('name') }}" />
+                <x-input name="email" placeholder="Email" value="{{ old('email') }}" />
+                <x-input name="email_confirmation" placeholder="Email Confirmation"
+                    value="{{ old('email_confirmation') }}" />
+                <x-input name="password" type="password" placeholder="Password" value="{{ old('password') }}" />
+            </x-form>
 
-    @if($message = session()->get('message'))
-    <div >{{ $message }}</div>
-    @endif
-
-    <form action="{{ route('register') }}" method="post">
-        @csrf
-        <div>
-            <input type="text" name="name" placeholder="Name">
-            @error('name')
-            <span>{{ $message }}</span>
-            @enderror
-        </div>
-
-        <br>
-        <div>
-            <input type="email" name="email" placeholder="Email">
-            @error('email')
-            <span>{{ $message }}</span>
-            @enderror
-        </div>
-
-        <br>
-        <div>
-            <input type="email" name="email_confirmation" placeholder="Email Confirmation">
-        </div>
-
-        <br>
-        <div>
-            <input type="password" name="password" placeholder="Password">
-            @error('password')
-            <span>{{ $message }}</span>
-            @enderror
-        </div>
-
-        <br>
-        <button>Logar</button>
-
-    </form>
-</div>
+            <x-slot:actions>
+                <x-button type="submit" form="register-form">Register</x-button>
+                <x-link href="{{ route('login') }}">Alredy have an account?</x-link>
+            </x-slot:actions>
+        </x-card>
+    </x-container>
+</x-layout.app>
