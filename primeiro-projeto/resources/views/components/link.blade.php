@@ -1,5 +1,4 @@
-@props(['href', 'block' => null, 'outline' => null])
+@props(['href', 'wide' => null, 'outline' => null])
 
-<a href="{{ $href }}"
-    {{ $attributes->class(['btn btn-info', 'btn-block' => $block, 'btn-outline' => $outline]) }}>
+<a href="{{ $href }}" {{ $attributes->class(['btn btn-info', 'btn-wide' => $wide, 'btn-outline' => $outline]) }}>
     {{ $slot }} </a>

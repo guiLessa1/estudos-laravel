@@ -1,13 +1,18 @@
 <x-layout.app>
     <x-container>
-        <div class="text-center space-y-4">
+        <div class="absolute top-20 left-0 flex flex-col gap-4">
+            <x-link :href="route('profile')" outline>Update Profile</x-link>
+            <x-link :href="route('links.create')" outline>Create a new Link</x-link>
+            <x-link :href="route('logout')" outline>Logout</x-link>
+        </div>
+        <div class="text-center space-y-4 w-2/3">
             <x-image src="/storage/{{ $user->photo }}" alt="Profile Picture" />
             <div class="font-bold text-2xl tracking-wider">{{ $user->name }}</div>
-            <div class="text-sm opacity-80">{{ $user->description }}</div>
+            <div class="text-sm opacity-80 mb-6">{{ $user->description }}</div>
 
             <ul class="space-y-2">
                 @foreach ($links as $link)
-                    <li class="flex items-center gap-2">
+                    <li class="flex items-center justify-center gap-2">
 
 
                         @unless ($loop->last)
@@ -33,9 +38,7 @@
                             </x-button>
                         @endunless
 
-
-
-                        <x-link href="{{ route('links.edit', $link) }}" block outline>
+                        <x-link href="{{ route('links.edit', $link) }}" wide outline>
                             {{ $link->name }}
                         </x-link>
                         <x-form :route="route('links.destroy', $link)" delete
